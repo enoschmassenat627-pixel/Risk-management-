@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ht">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071d2f">
+  <title>Capital Guard Pro</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">◆</div>
+      <div><strong>Capital Guard Pro</strong><small>RISK MANAGEMENT SYSTEM</small></div>
+    </div>
+    <button class="ghost" id="priceBtn">Gade pri yo</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="controls">
+        <select id="lang">
+          <option>Kreyòl Ayisyen</option>
+          <option>Français</option>
+          <option>English</option>
+        </select>
+        <button class="secondary" onclick="alert('Enstalasyon PWA: ouvri app la nan Safari/Chrome epi chwazi Add to Home Screen.')">Enstale app la</button>
+        <button class="secondary" onclick="showPanel('connect')">Konekte</button>
+        <button class="secondary" onclick="showPanel('plans')">Patnè</button>
+        <button class="primary" onclick="showPanel('start')">Kòmanse gratis</button>
+      </div>
+
+      <p class="eyebrow">● FÈT POU TRADER KI VLE DISIPLIN</p>
+      <h1>Trade ak yon sistèm.<br>Pwoteje kapital ou.</h1>
+      <p class="lead">Capital Guard Pro ede w kalkile kantite ki kòrèk pou trade, respekte limit risk ou, jere chak sesyon, epi evite desizyon emosyonèl.</p>
+
+      <button class="cta" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Kreye kont gratis →</button>
+      <button class="wide secondary" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'})">Gade kijan li mache ↓</button>
+
+      <div class="checks">
+        <span>✓ Ou pa bezwen kat labank</span>
+        <span>✓ Aksè sekirize pa aparèy</span>
+        <span>✓ Ou ka enstale l sou telefòn ak òdinatè</span>
+      </div>
+    </section>
+
+    <section class="card dashboard" id="dashboard">
+      <div class="card-head">
+        <div><h2>Capital Guard Pro</h2><small>Live risk management system</small></div>
+        <span class="live">● LIVE</span>
+      </div>
+
+      <div class="metric big">
+        <small>Minimum next trade</small>
+        <strong id="nextTrade">$24.80</strong>
+        <span>Calculated from capital, payout, target and risk limits.</span>
+      </div>
+
+      <div class="metric">
+        <div class="row"><small>Session progress</small><b id="progressText">3 / 5</b></div>
+        <div class="bar"><i id="progressBar"></i></div>
+      </div>
+
+      <div class="grid2">
+        <div class="metric"><small>Stop Loss</small><b id="stopLoss">-$300</b></div>
+        <div class="metric"><small>Target</small><b id="targetOut">$500</b></div>
+        <div class="metric"><small>Win Rate</small><b id="winRateOut">76%</b></div>
+        <div class="metric"><small>Account Gain</small><b id="gainOut">+12.4%</b></div>
+      </div>
+
+      <div class="protection">✓ <div><b>Capital protection active</b><span>Your trading limits are ready for this session.</span></div></div>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">SISTÈM DISIPLIN KONPLÈ</p>
+      <h2>Tout sa w bezwen pou jere risk<br>nan yon sèl kote</h2>
+      <div class="feature-grid">
+        <article class="card feature"><div class="icon">🛡️</div><h3>Pwoteksyon kapital</h3><p>Fikse stop-loss ou epi resevwa avètisman lè limit ou prè pou w kanpe.</p></article>
+        <article class="card feature"><div class="icon">📈</div><h3>Trade Calculator</h3><p>Kalkile minimum trade amount selon kapital, payout, target ak risk ou.</p></article>
+        <article class="card feature"><div class="icon">📊</div><h3>Analiz pèfòmans</h3><p>Revize history, wins, losses, kwasans kont ak regilarite ou.</p></article>
+      </div>
+    </section>
+
+    <section class="section discipline">
+      <h2>Soti nan desizyon o aza pou<br>rive nan ekzekisyon ki estriktire</h2>
+      <p>Capital Guard Pro pa di w ki trade pou w pran. Li ede w estriktire kantite lajan, risk ak disiplin pou chak sesyon.</p>
+      <div class="compare">
+        <div class="bad"><b>✕</b><h3>Trading ak emosyon</h3><p>Chanje trade amount, kouri dèyè pèt, inyore stop-loss, epi trade san yon plan sesyon ki klè.</p></div>
+        <div class="arrow">↓</div>
+        <div class="good"><b>✓</b><h3>Trading ak estrikti</h3><p>Chak sesyon kòmanse ak limit ki deja fikse, trade amount kalkile, ak yon règ pou konnen kilè pou kanpe.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="calculator">
+      <p class="eyebrow">TRADE CALCULATOR</p>
+      <h2>Configure risk ou</h2>
+      <div class="card form">
+        <label>Kapital kont ($)<input id="capital" type="number" value="1000" min="1"></label>
+        <label>Risk pa trade (%)<input id="risk" type="number" value="2.5" min="0.1" max="100" step="0.1"></label>
+        <label>Payout (%)<input id="payout" type="number" value="80" min="1" max="100" step="1"></label>
+        <label>Target sesyon ($)<input id="target" type="number" value="500" min="0" step="1"></label>
+        <label>Stop Loss sesyon ($)<input id="stop" type="number" value="300" min="0" step="1"></label>
+        <label>Trade ki fèt<input id="trades" type="number" value="3" min="0"></label>
+        <label>Total trade planifye<input id="maxTrades" type="number" value="5" min="1"></label>
+        <button class="cta" onclick="calculate()">Kalkile trade →</button>
+        <div class="result"><small>Trade amount rekòmande</small><strong id="calcResult">$25.00</strong><p id="calcExplain">Risk pa trade la respekte limit ou.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="eyebrow">HISTORY</p>
+      <h2>Analiz pèfòmans</h2>
+      <div class="card stats">
+        <div><small>Wins</small><b id="wins">0</b></div>
+        <div><small>Losses</small><b id="losses">0</b></div>
+        <div><small>Win rate</small><b id="histRate">0%</b></div>
+        <button class="secondary" onclick="recordResult(true)">+ Win</button>
+        <button class="danger" onclick="recordResult(false)">+ Loss</button>
+        <button class="secondary" onclick="resetHistory()">Reset</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Capital Guard Pro · Risk Management System</footer>
+
+  <div class="modal" id="modal">
+    <div class="modal-box"><button class="close" onclick="closePanel()">×</button><h2 id="modalTitle">Capital Guard Pro</h2><p id="modalText"></p></div>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
