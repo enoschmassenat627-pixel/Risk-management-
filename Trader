@@ -1,0 +1,98 @@
+◆
+Capital Guard ProRISK MANAGEMENT SYSTEM
+Gade pri yo
+          Kreyòl Ayisyen
+          Français
+          English
+         Enstale app la Konekte Patnè Kòmanse gratis
+● FÈT POU TRADER KI VLE DISIPLIN
+Trade ak yon sistèm. Pwoteje kapital ou.
+Capital Guard Pro ede w kalkile kantite ki kòrèk pou trade, respekte limit risk ou, jere chak sesyon, epi evite desizyon emosyonèl.
+Kreye kont gratis → Gade kijan li mache ↓
+✓ Ou pa bezwen kat labank ✓ Aksè sekirize pa aparèy ✓ Ou ka enstale l sou telefòn ak òdinatè
+Capital Guard Pro
+Live risk management system
+● LIVE
+Minimum next trade $24.80 Calculated from capital, payout, target and risk limits.
+Session progress3 / 5
+
+Stop Loss-$300
+Target$500
+Win Rate76%
+Account Gain+12.4%
+✓
+Capital protection activeYour trading limits are ready for this session.
+SISTÈM DISIPLIN KONPLÈ
+Tout sa w bezwen pou jere risk nan yon sèl kote
+🛡️
+Pwoteksyon kapital
+Fikse stop-loss ou epi resevwa avètisman lè limit ou prè pou w kanpe.
+📈
+Trade Calculator
+Kalkile minimum trade amount selon kapital, payout, target ak risk ou.
+📊
+Analiz pèfòmans
+Revize history, wins, losses, kwasans kont ak regilarite ou.
+Soti nan desizyon o aza pou rive nan ekzekisyon ki estriktire
+Capital Guard Pro pa di w ki trade pou w pran. Li ede w estriktire kantite lajan, risk ak disiplin pou chak sesyon.
+✕
+Trading ak emosyon
+Chanje trade amount, kouri dèyè pèt, inyore stop-loss, epi trade san yon plan sesyon ki klè.
+↓
+✓
+Trading ak estrikti
+Chak sesyon kòmanse ak limit ki deja fikse, trade amount kalkile, ak yon règ pou konnen kilè pou kanpe.
+TRADE CALCULATOR
+Configure risk ou
+Kapital kont ($) Risk pa trade (%) Payout (%) Target sesyon ($) Stop Loss sesyon ($) Trade ki fèt Total trade planifye Kalkile trade →
+Trade amount rekòmande$25.00
+Risk pa trade la respekte limit ou.
+HISTORY
+Analiz pèfòmans
+Wins0
+Losses0
+Win rate0%
++ Win + Loss Reset
+Capital Guard Pro · Risk Management System
+×
+Capital Guard Pro
+const $=id=>document.getElementById(id);
+function money(n){return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2}).format(n)}
+function calculate(){
+  const capital=+$("capital").value||0, risk=+$("risk").value||0, payout=(+$("payout").value||0)/100;
+  const target=+$("target").value||0, stop=+$("stop").value||0, trades=Math.max(0,+$("trades").value||0), max=Math.max(1,+$("maxTrades").value||1);
+  const riskAmount=capital*risk/100;
+  let amount=Math.max(1,riskAmount);
+  if(payout>0 && target>0) amount=Math.min(amount,target/payout);
+  if(stop>0 && trades<max) amount=Math.min(amount,stop/Math.max(1,max-trades));
+  $("calcResult").textContent=money(amount);
+  $("nextTrade").textContent=money(amount);
+  $("stopLoss").textContent="-"+money(stop).replace("$","");
+  $("targetOut").textContent=money(target);
+  const progress=Math.min(100,trades/max*100);
+  $("progressText").textContent=`${trades} / ${max}`;
+  $("progressBar").style.width=progress+"%";
+  $("calcExplain").textContent=`Risk pa trade: ${money(riskAmount)} · Payout: ${Math.round(payout*100)}% · Limit sesyon an respekte.`;
+}
+function recordResult(win){
+  let w=+localStorage.cgWins||0,l=+localStorage.cgLosses||0;
+  win?w++:l++; localStorage.cgWins=w;localStorage.cgLosses=l;renderHistory();
+}
+function resetHistory(){localStorage.removeItem("cgWins");localStorage.removeItem("cgLosses");renderHistory()}
+function renderHistory(){
+  const w=+localStorage.cgWins||0,l=+localStorage.cgLosses||0,total=w+l,rate=total?Math.round(w/total*100):0;
+  $("wins").textContent=w;$("losses").textContent=l;$("histRate").textContent=rate+"%";$("winRateOut").textContent=rate+"%";
+}
+function showPanel(type){
+  const data={
+    connect:["Konekte","Nan vèsyon sa a, done risk yo rete sou aparèy ou. Ou ka ajoute login/backend pita."],
+    plans:["Patnè","Ou ka mete plan gratis ak plan Pro isit la."],
+    start:["Kòmanse gratis","Antre kapital ou, risk pa trade, payout, target ak stop-loss pou kalkile plan sesyon an."],
+  };
+  $("modalTitle").textContent=data[type][0];$("modalText").textContent=data[type][1];$("modal").classList.add("show");
+}
+function closePanel(){$("modal").classList.remove("show")}
+$("priceBtn").onclick=()=>showPanel("plans");
+["capital","risk","payout","target","stop","trades","maxTrades"].forEach(id=>$(id).addEventListener("input",calculate));
+renderHistory();calculate();
+
